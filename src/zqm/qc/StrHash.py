@@ -1,17 +1,5 @@
-'''
-Created on 2016-3-21
-
-@author: zqm
-'''
-# Need to constrain U32 to only 32 bits using the & 0xffffffff
-# since Python has no native notion of integers limited to 32 bit
-# http://docs.python.org/library/stdtypes.html#numeric-types-int-float-long-complex
-
-'''Original copyright notice:
-    By Bob Jenkins, 1996.  bob_jenkins@burtleburtle.net.  You may use this
-    code any way you wish, private, educational, or commercial.  Its free.
-'''
-
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
 def rot(x,k):
     return (((x)<<(k)) | ((x)>>(32-(k))))
 
@@ -36,7 +24,7 @@ def final(a, b, c):
     c ^= b; c &= 0xffffffff; c -= rot(b,24); c &= 0xffffffff
     return a, b, c
 
-def hashlittle2(data, initval = 0, initval2 = 0):
+def jenkins2(data, initval = 0, initval2 = 0):
     length = lenpos = len(data)
 
     a = b = c = (0xdeadbeef + (length) + initval)
@@ -69,17 +57,9 @@ def hashlittle2(data, initval = 0, initval2 = 0):
 
     a, b, c = final(a, b, c)
 
-    return c, b
+    return c, b, a
 
-def hashlittle(data, initval=0):
-    c, b = hashlittle2(data, initval, 0)
+def jenkins(data, initval=0):
+    c, b, a = jenkins2(data, initval, 0)
     return c
-
-if __name__ == "__main__":
-    import sys
-    hashstr = 'Four score and seven years ago'
-    hash, hash2 = hashlittle2(hashstr, 0xdeadbeef, 0xdeadbeef)
-    print '"%s": %x %x' % (hashstr, hash, hash2)
-
-    hash = hashlittle(hashstr, 0xdeadbeef)
-    print '"%s": %x' % (hashstr, hash)
+    
