@@ -52,9 +52,10 @@ def minhash(gat):
                             txt_count[t]=0;
                         if txt_count[t]>gat:
                             flag=1
-                            raise getoutofloop("break")   
-                elif flag!=1:
-                    code_txts[key]=list(i);
+                            raise getoutofloop("break")  
+                         
+            if flag!=1:
+                code_txts[key]=list(i);
             
                 
                     
