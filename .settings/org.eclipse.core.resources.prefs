@@ -1,3 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/zqm/qc/DoExcel.py=UTF-8
 encoding//src/zqm/qc/StrHash.py=UTF-8
 encoding//src/zqm/qc/TxtDealer.py=UTF-8
+encoding//src/zqm/qc/similarity/MinHash.py=UTF-8

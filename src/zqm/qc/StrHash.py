@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
+
 def rot(x,k):
     return (((x)<<(k)) | ((x)>>(32-(k))))
 

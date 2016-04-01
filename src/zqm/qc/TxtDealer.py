@@ -13,21 +13,21 @@ import StrHash
 
 def cut_word(txt,all_mode=False):
     '''分词操作'''
-    words = jieba.cut(txt, all_mode)            #返回类型：可迭代的generator
+    words = list(jieba.cut(txt, all_mode))           #返回类型：可迭代的generator
     return  words;
 
 def extract_key(self,key_num=10):
     '''关键词提取'''
-    keys=jieba.analyse.extract_tags(txt,key_num); #返回类型：可迭代的generator
+    keys=list(jieba.analyse.extract_tags(txt,key_num)); #返回类型：可迭代的generator
     return  keys;
 
 def get_TF(txt):
     '''TF提取'''
     words= cut_word(txt);
-    word_list=list(words);
+    words=list(words);
     tf_dict = dict()
-    for i in range(len(word_list)):
-        s =word_list[i];
+    for i in range(len(words)):
+        s =words[i];
         if s not in tf_dict:
             tf_dict[s] = 1
         else:
@@ -37,10 +37,9 @@ def get_TF(txt):
 def shingling(txt,step=5,on=True):
     '''shingling'''
     words= cut_word(txt);
-    word_list=list(words);
     S = dict()
-    for i in range(len(word_list) - step+1):
-        s = ''.join(word_list[i:i + step])
+    for i in range(len(words) - step+1):
+        s = ''.join(words[i:i + step])
         if s not in S:
             S[s] = 1
         else:
@@ -48,13 +47,12 @@ def shingling(txt,step=5,on=True):
     return S
 
 #用于MinHashBaseSingleJenkins Hashes 若k较大，可考虑用token 的方式减小shingles。tokenize为是否进行hash的开关， 当开启hash时，klen为是否hash的阀值。
-def shingling_Jenkins(txt,step=5,on=True):
+def shingling_jenkins(txt,step=10,on=True):
     '''shingling by hash'''
     words= cut_word(txt);
-    word_list=list(words);
     S = dict()
-    for i in range(len(word_list) - step+1):
-        s = ''.join(word_list[i:i + step])
+    for i in range(len(words) - step+1):
+        s = ''.join(words[i:i + step])
         if on:
             s=StrHash.jenkins(s);
         if s not in S:
@@ -62,9 +60,3 @@ def shingling_Jenkins(txt,step=5,on=True):
         else:
             S[s] += 1
     return S        
-    
-if __name__ == '__main__':
-    txt="垃圾回收机制不仅针对引用计数为0的对象，同样也可以处理循环引用的情况。";
-    sh_dict=shingling_Jenkins(txt);
-    for s in sh_dict.keys():
-        print(str(s)+","+str(sh_dict[s]))#int 不能自动转换为str类型
