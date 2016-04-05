@@ -8,7 +8,7 @@ Created on 2015-12-2
 import xlrd
 from xlutils.copy import copy
 
-filename='D:\WorkSpaces\MasterQc\doc\Sample50.xls'
+filename='D:\WorkSpaces\MasterQc\doc\Sample10.xls'
 
 def open_excel(file):
     '''打开excel'''
@@ -24,6 +24,7 @@ def read_excel(row,col=2,sheet_index=0,file= filename,):
     data = open_excel(file) 
     #获取表单
     table = data.sheets()[sheet_index]
+    #nrows = table.nrows ;ncols = table.ncols ;print "行数%d,列数%d" %(nrows,ncols)
     txt=""
     #获取第i行的字段值(list)
     row_i_values = table.row_values(row)     
@@ -60,4 +61,3 @@ def count_wrong_miss_num(col2=5,col1=4,file= filename,sheet_index=0):
             elif(col1_num!="" and col2_num==""):
                 miss_num+=1
     return (wrong_num,miss_num)
-    

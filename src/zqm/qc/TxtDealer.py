@@ -16,11 +16,11 @@ def cut_word(txt,all_mode=False):
     words = list(jieba.cut(txt, all_mode))           #返回类型：可迭代的generator
     return  words;
 
-def extract_key(self,key_num=10):
+def extract_key(txt,key_num=10):
     '''关键词提取'''
     keys=list(jieba.analyse.extract_tags(txt,key_num)); #返回类型：可迭代的generator
     return  keys;
-
+#================================================================================#
 def get_TF(txt):
     '''TF提取'''
     words= cut_word(txt);
@@ -47,14 +47,14 @@ def shingling(txt,step=5,on=True):
     return S
 
 #用于MinHashBaseSingleJenkins Hashes 若k较大，可考虑用token 的方式减小shingles。tokenize为是否进行hash的开关， 当开启hash时，klen为是否hash的阀值。
-def shingling_jenkins(txt,step=10,on=True):
+def shingling_jenkins(txt,initval=0,step=5,on=True):
     '''shingling by hash'''
     words= cut_word(txt);
     S = dict()
     for i in range(len(words) - step+1):
         s = ''.join(words[i:i + step])
         if on:
-            s=StrHash.jenkins(s);
+            s=StrHash.jenkins(s,initval);
         if s not in S:
             S[s] = 1
         else:
