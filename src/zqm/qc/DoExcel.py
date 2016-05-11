@@ -18,10 +18,8 @@ def open_excel(file):
     except Exception,e:
         print str(e)
         
-def read_excel(row,col=2,sheet_index=0,file= filename,):
+def read_excel(row,col=3,data = open_excel(file),sheet_index=0):
     '''读excel,读取特定单元格的内容'''
-    #打开文件
-    data = open_excel(file) 
     #获取表单
     table = data.sheets()[sheet_index]
     #nrows = table.nrows ;ncols = table.ncols ;print "行数%d,列数%d" %(nrows,ncols)
@@ -32,7 +30,7 @@ def read_excel(row,col=2,sheet_index=0,file= filename,):
         txt=table.cell_value(row,col)#table.cell_value(i,2)是unicode类型的 ,转化为字符串类型: str(table.cell_value(i,2))
     return txt
 
-def write_excel(value,row,col=5,sheet_index=0,file= filename):
+def write_excel(value,row,col=7,file= filename,sheet_index=0):
     '''写excel，想特定单元格内书写value'''
     old_excel = xlrd.open_workbook(file, formatting_info=True);
     new_excel = copy(old_excel);
