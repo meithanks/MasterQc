@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
 '''
 Created on 2016-5-11
 
@@ -6,39 +8,42 @@ Created on 2016-5-11
 
 class PiraTxt():
     '''
-    classdocs
+            样本记录对象
     '''
-    def __init__(self,no,text):
-        self.no=no
+    def __init__(self,title,text,id,words):
+        self.title=title
         self.text=text
+        self.id=id
+        self.rid=id
+        self.words=words
         
-    def getNo(self):
-        return self.no
+    def getId(self):
+        return self.Id
     
-    def getHrefText(self):
-        return self.hrefText
+    def getTitle(self):
+        return self.title
     
     def getText(self):
         return self.text
     
-    def getUrl(self):
-        return self.url
-    
     def getRid(self):
         return self.rid
-
-    def setNo(self,no):
-        self.no=no
     
-    def setHrefText(self,hrefText):
-        self.hrefText=hrefText
+    def getWords(self):
+        return self.words
+
+    def setId(self,id):
+        self.id=id
+    
+    def setTitle(self,title):
+        self.title=title
     
     def setText(self,text):
         self.text=text
-    
-    def setUrl(self,url):
-        self.url=url
-    
+        
     def setRid(self,rid):
         self.rid=rid
+        
+    def setWords(self,words):
+        self.words=words
         

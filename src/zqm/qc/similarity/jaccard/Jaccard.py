@@ -13,15 +13,24 @@ import zqm.qc.TxtDealer as TD
 class Jaccard():
    
     def __init__(self,accuracy=0.77):
+        '''
+        Jaccard构造器，构造参数中需传递相似阈值
+        '''
         self.accuracy=accuracy
         
     def getSimScore(self,words1,words2):
+        '''
+                        获得两个word集合的相似度
+        '''
         inters=list(set(words1).intersection(set(words2)))
         unions=list(set(words1).union(set(words2)))
         similar=len(inters)/len(unions)
         return similar
     
     def isSim(self,words1,words2):
+        '''
+                        获得两个word集合的是否相似
+        '''
         if self.getSimScore(words1,words2) > self.accuracy:
             return True
         else:
