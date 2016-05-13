@@ -8,7 +8,7 @@ Created on 2016-4-1
 from __future__ import division
 import time
 import zqm.qc.DoExcel as DE
-import zqm.qc.TxtDealer as TD
+import zqm.qc.DoTxt as TD
 
 def signature_one(row,n=20):
     '''抽取某文章中的n个最小的hash值，使用的是一种hash'''

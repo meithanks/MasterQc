@@ -7,23 +7,23 @@ Created on 2016-5-11
 '''
 from __future__ import division  #from 需放开头，使用这个导入/默认为float除法
 import zqm.qc.DoExcel as DE
-import zqm.qc.TxtDealer as TD
+import zqm.qc.DoTxt as TD
 
 
 class Jaccard():
    
-    def __init__(self,accuracy=0.77):
+    def __init__(self,threshold=0.77):
         '''
         Jaccard构造器，构造参数中需传递相似阈值
         '''
-        self.accuracy=accuracy
+        self.threshold=threshold
         
-    def getSimScore(self,words1,words2):
+    def jaccard(self,set1,set2):
         '''
-                        获得两个word集合的相似度
+                        获得两个集合的jaccad
         '''
-        inters=list(set(words1).intersection(set(words2)))
-        unions=list(set(words1).union(set(words2)))
+        inters=list(set(set1).intersection(set(set2)))
+        unions=list(set(set1).union(set(set2)))
         similar=len(inters)/len(unions)
         return similar
     
@@ -31,7 +31,7 @@ class Jaccard():
         '''
                         获得两个word集合的是否相似
         '''
-        if self.getSimScore(words1,words2) > self.accuracy:
+        if self.jaccard(words1,words2) > self.threshold:
             return True
         else:
             return False

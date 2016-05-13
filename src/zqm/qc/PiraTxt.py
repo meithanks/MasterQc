@@ -10,12 +10,12 @@ class PiraTxt():
     '''
             样本记录对象
     '''
-    def __init__(self,title,text,id,words):
+    def __init__(self,title,text,id,codes=list()):
         self.title=title
         self.text=text
         self.id=id
         self.rid=id
-        self.words=words
+        self.codes=codes
         
     def getId(self):
         return self.Id
@@ -29,8 +29,8 @@ class PiraTxt():
     def getRid(self):
         return self.rid
     
-    def getWords(self):
-        return self.words
+    def getCodes(self):
+        return self.codes
 
     def setId(self,id):
         self.id=id
@@ -44,6 +44,6 @@ class PiraTxt():
     def setRid(self,rid):
         self.rid=rid
         
-    def setWords(self,words):
-        self.words=words
+    def setCodes(self,codes):
+        self.codes=codes
         

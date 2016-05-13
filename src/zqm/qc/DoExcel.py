@@ -18,8 +18,9 @@ def open_excel(file):
     except Exception,e:
         print str(e)
         
-def read_excel(row,col=3,data = open_excel(file),sheet_index=0):
+def read_excel(row,col=1,file=filename,sheet_index=0):
     '''读excel,读取特定单元格的内容'''
+    data = open_excel(file)
     #获取表单
     table = data.sheets()[sheet_index]
     #nrows = table.nrows ;ncols = table.ncols ;print "行数%d,列数%d" %(nrows,ncols)
@@ -37,25 +38,3 @@ def write_excel(value,row,col=7,file= filename,sheet_index=0):
     new_excel_sheet = new_excel.get_sheet(sheet_index);
     new_excel_sheet.write(row, col, value);
     new_excel.save(file); 
-    
-def count_wrong_miss_num(col2=5,col1=4,file= filename,sheet_index=0):
-    #打开文件
-    data = open_excel(file) 
-    #获取表单
-    table = data.sheets()[sheet_index]
-    #获取行数
-    nrows = table.nrows #ncols = table.ncols 获得列数
-    wrong_num=0
-    miss_num=0
-    for i in range(1,nrows):
-        #获取第i行的字段值(list)
-        row_i_values = table.row_values(i)     
-        if row_i_values:
-            col1_num=table.cell_value(i,col1)
-            col2_num=table.cell_value(i,col2)
-            if((col1_num=="" and col2_num!="") or \
-               (col1_num!="" and col2_num!="" and col1_num!=col2_num) ):
-                wrong_num+=1
-            elif(col1_num!="" and col2_num==""):
-                miss_num+=1
-    return (wrong_num,miss_num)

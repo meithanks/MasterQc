@@ -14,10 +14,11 @@ import time
 
 class TestCase():
    
-    def __init__(self,file='D:\WorkSpaces\MasterQc\doc\Sample3000.xls',resultCol=4,runtime=0,testType="Jaccard"):
+    def __init__(self,file='D:\WorkSpaces\MasterQc\doc\Sample10.xls',testType="Jaccard",resultCol=4,extraSignTime=0,compSignTime=0):
         self.excel=file
         self.reaultCol=resultCol
-        self.runtime=runtime
+        self.extraSignTime=extraSignTime
+        self.compSignTime=compSignTime
         self.testType=testType
         
     def getPiraTxts(self):
@@ -28,10 +29,19 @@ class TestCase():
         exclHandle=ExcelHandle.ExcelHandle(self.excel)
         PiraTxts=list()
         for i in range(1,exclHandle.nrows):
-            txt=exclHandle.read_cell(i,1)
-            TxtH=TxtHandle.TxtHandle(txt)
-            pt=PiraTxt.PiraTxt(exclHandle.read_cell(i,0),"",exclHandle.read_cell(i,2),TxtH.words)
+            pt=PiraTxt.PiraTxt(exclHandle.read_cell(i,0),exclHandle.read_cell(i,1),exclHandle.read_cell(i,2))
             PiraTxts.append(pt);
+        
+        #提取特征存入舆情样本对象中的codes
+        start = time.clock()
+        for i in range(len(PiraTxts)):
+            txt=PiraTxts[i].getText()
+            TxtH=TxtHandle.TxtHandle(txt)
+            codes=TxtH.getWords()
+            PiraTxts[i].setCodes(codes)
+        end = time.clock() 
+        self.extraSignTime=end-start
+        
         print "1.将测试样本转化为对象List完成"
         return PiraTxts
    
@@ -39,7 +49,6 @@ class TestCase():
         '''
                         获取测试样本中相似文章对
         '''
-        
         PiraTxts=self.getPiraTxts()
         txt_num=len(PiraTxts)
         PiraTxtWithRids=list()
@@ -49,21 +58,23 @@ class TestCase():
         for i in range(txt_num):
             if i not in ids:      
                 for j in range(i+1,txt_num):
-                    jc=Jaccard.Jaccard()
+                    #使用Jaccard 计算相似度
+                    simHandle=Jaccard.Jaccard()
                     #print similar
-                    if jc.isSim(PiraTxts[i].getWords(),PiraTxts[j].getWords()):
+                    if simHandle.isSim(PiraTxts[i].getCodes(),PiraTxts[j].getCodes()):
                         PiraTxts[j].setRid(PiraTxts[i].id)
                         PiraTxtWithRids.append(PiraTxts[j])
                         ids.append(j) 
         end = time.clock() 
-        self.runtime=end-start
+        self.compSignTime=end-start
         print "2.获取测试样本中相似文章对"
         return PiraTxtWithRids 
     
     def saveSimPiraTxts(self):
         PiraTxtPairs =self.getSimPiraTxts()
         exclHandle=ExcelHandle.ExcelHandle(self.excel)
-        exclHandle.write_cell(0,self.reaultCol,self.testType+"("+str(self.runtime)+")")
+        #记录运行时间和分词+特征提取时间
+        exclHandle.write_cell(0,self.reaultCol,self.testType+"(extraSign:"+str(self.extraSignTime)+")"+"(compSign:"+str(self.compSignTime)+")")
         for i in range(len(PiraTxtPairs)):
             #print '(%d , %d)' % (PiraTxtPairs[i].id,PiraTxtPairs[i].rid) 
             exclHandle.write_cell(PiraTxtPairs[i].id-1,self.reaultCol,PiraTxtPairs[i].rid)
@@ -75,9 +86,9 @@ class TestCase():
                   
 if __name__=="__main__":
    
-    TCase=TestCase()
-#    TCase.saveSimPiraTxts()
-    TCase.countWrongMiss()
+    TCase=TestCase('D:\WorkSpaces\MasterQc\doc\Sample10.xls','Jaccard')
+    TCase.saveSimPiraTxts()
+#    TCase.countWrongMiss()
 
 #    PiraTxtWithRids=TCase.getSimPiraTxts()
 #    print TCase.runtime
