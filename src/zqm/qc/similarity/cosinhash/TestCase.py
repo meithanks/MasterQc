@@ -86,12 +86,17 @@ class TestCase():
                   
 if __name__=="__main__":
 #    import zqm.qc.similarity.cosinhash.CosinHashByTF as CosinHash
-#    TCase=TestCase('D:\WorkSpaces\MasterQc\doc\Sample10.xls','CosinHash',7)
+#    TCase=TestCase('D:\WorkSpaces\MasterQc\doc\Sample10.xls','CosinHashTF',7)
 #    TCase.saveSimPiraTxts()
     
-    import zqm.qc.similarity.cosinhash.CosinHashByRelativeTF as CosinHash
-    TCase=TestCase('D:\WorkSpaces\MasterQc\doc\Sample10.xls','CosinHash',7)
+#    import zqm.qc.similarity.cosinhash.CosinHashByRelativeTF as CosinHash
+#    TCase=TestCase('D:\WorkSpaces\MasterQc\doc\Sample10.xls','CosinHashTF',7)
+#    TCase.saveSimPiraTxts()
+    
+    import zqm.qc.similarity.cosinhash.CosinHashByTFIDF as CosinHash
+    TCase=TestCase('D:\WorkSpaces\MasterQc\doc\Sample10.xls','CosinHashTFIDF',8)
     TCase.saveSimPiraTxts()
+    
 #    TCase.countWrongMiss()
 
 #    PiraTxtWithRids=TCase.getSimPiraTxts()

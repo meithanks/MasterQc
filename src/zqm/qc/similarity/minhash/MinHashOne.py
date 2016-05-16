@@ -6,9 +6,10 @@ Created on 2016-5-13
 @author: zqm
 '''
 from __future__ import division  
+import zqm.qc.ExcelHandle as ExcelHandle
+import zqm.qc.PiraTxt as PiraTxt
+import zqm.qc.TxtHandle as TxtHandle
 import zqm.qc.DoHash  as StrHash
-import zqm.qc.DoExcel as DE
-import zqm.qc.DoTxt as TD
 
 class MinHash():
     '''
@@ -78,16 +79,29 @@ class MinHash():
         
 if __name__=="__main__":
    
+    file='D:\WorkSpaces\MasterQc\doc\Sample10.xls'
+    exclHandle=ExcelHandle.ExcelHandle(file)
+    PiraTxts=list()
+    i=2
+    pt=PiraTxt.PiraTxt(exclHandle.read_cell(i,0),exclHandle.read_cell(i,1),exclHandle.read_cell(i,2))
+    PiraTxts.append(pt);
+    j=3
+    pt=PiraTxt.PiraTxt(exclHandle.read_cell(j,0),exclHandle.read_cell(j,1),exclHandle.read_cell(j,2))
+    PiraTxts.append(pt);
+    
+    txt=PiraTxts[0].getText()
+    TxtH=TxtHandle.TxtHandle(txt)
+    signHandle=MinHash.MinHash()
+    codes=signHandle.extraSign(TxtH.getWords())
+    PiraTxts[0].setCodes(codes)
+    
+    txt=PiraTxts[1].getText()
+    TxtH=TxtHandle.TxtHandle(txt)
+    signHandle=MinHash.MinHash()
+    codes=signHandle.extraSign(TxtH.getWords())
+    PiraTxts[1].setCodes(codes)
+    
     Jc=MinHash()
-    txt1=DE.read_excel(7)
-    print txt1
-    wordList1=TD.cut_word(txt1)
-    wordList1=Jc.directJenkins(wordList1)
     
-    txt2=DE.read_excel(8)
-    print txt2
-    wordList2=TD.cut_word(txt2)
-    wordList2=Jc.directJenkins(wordList2)
-    
-    print Jc.jaccard(wordList1,wordList2)
-    print Jc.isSim(wordList1,wordList2)
+    print Jc.Cosine(PiraTxts[0].getCodes(),PiraTxts[1].getCodes())
+    print Jc.isSim(PiraTxts[0].getCodes(),PiraTxts[1].getCodes())

@@ -26,6 +26,8 @@ class TxtHandle():
         '''关键词提取'''
         keys=list(jieba.analyse.extract_tags(self.txt,key_num)); #返回类型：可迭代的generator
         return  keys;
+    
+   
     #================================================================================#
        
     def getWords(self):

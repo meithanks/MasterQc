@@ -7,9 +7,9 @@ Created on 2016-5-11
 '''
 from __future__ import division  #from 需放开头，使用这个导入/默认为float除法
 import math
-import zqm.qc.DoExcel as DE
-import zqm.qc.DoTxt as TD
-
+import zqm.qc.ExcelHandle as ExcelHandle
+import zqm.qc.PiraTxt as PiraTxt
+import zqm.qc.TxtHandle as TxtHandle
 
 class CosinHash():
    
@@ -75,16 +75,32 @@ class CosinHash():
             return False
         
 if __name__=="__main__":
-   
-    txt1=DE.read_excel(2)
-    wordList1=TD.cut_word(txt1)
+    file='D:\WorkSpaces\MasterQc\doc\Sample10.xls'
+    exclHandle=ExcelHandle.ExcelHandle(file)
+    PiraTxts=list()
+    i=2
+    pt=PiraTxt.PiraTxt(exclHandle.read_cell(i,0),exclHandle.read_cell(i,1),exclHandle.read_cell(i,2))
+    PiraTxts.append(pt);
+    j=3
+    pt=PiraTxt.PiraTxt(exclHandle.read_cell(j,0),exclHandle.read_cell(j,1),exclHandle.read_cell(j,2))
+    PiraTxts.append(pt);
     
-    txt2=DE.read_excel(3)
-    wordList2=TD.cut_word(txt2)
+    txt=PiraTxts[0].getText()
+    TxtH=TxtHandle.TxtHandle(txt)
+    codes=TxtH.getWords()
+    PiraTxts[0].setCodes(codes)
+    
+    txt=PiraTxts[1].getText()
+    TxtH=TxtHandle.TxtHandle(txt)
+    codes=TxtH.getWords()
+    PiraTxts[1].setCodes(codes)
     
     Jc=CosinHash()
-    print Jc.Cosine(wordList1,wordList2)
-    print Jc.isSim(wordList1,wordList2)
+    
+    print Jc.Cosine(PiraTxts[0].getCodes(),PiraTxts[1].getCodes())
+    print Jc.isSim(PiraTxts[0].getCodes(),PiraTxts[1].getCodes())
+   
+   
    
     
     
