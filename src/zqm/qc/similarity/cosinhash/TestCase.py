@@ -89,12 +89,12 @@ if __name__=="__main__":
 #    TCase=TestCase('D:\WorkSpaces\MasterQc\doc\Sample10.xls','CosinHashTF',7)
 #    TCase.saveSimPiraTxts()
     
-#    import zqm.qc.similarity.cosinhash.CosinHashByRelativeTF as CosinHash
-#    TCase=TestCase('D:\WorkSpaces\MasterQc\doc\Sample10.xls','CosinHashTF',7)
+#    import zqm.qc.similarity.cosinhash.CosinHashByTFIDF as CosinHash
+#    TCase=TestCase('D:\WorkSpaces\MasterQc\doc\Sample10.xls','CosinHashTFIDF',8)
 #    TCase.saveSimPiraTxts()
     
-    import zqm.qc.similarity.cosinhash.CosinHashByTFIDF as CosinHash
-    TCase=TestCase('D:\WorkSpaces\MasterQc\doc\Sample10.xls','CosinHashTFIDF',8)
+    import zqm.qc.similarity.cosinhash.CosinHashByTextRank as CosinHash
+    TCase=TestCase('D:\WorkSpaces\MasterQc\doc\Sample10.xls','CosinHashTextRank',9)
     TCase.saveSimPiraTxts()
     
 #    TCase.countWrongMiss()

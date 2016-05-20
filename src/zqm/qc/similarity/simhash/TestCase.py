@@ -25,7 +25,7 @@ class TestCase():
         '''
                         将测试样本转化为对象List
         '''
-        #print "0.开始..."
+        print "0.开始..."
         exclHandle=ExcelHandle.ExcelHandle(self.excel)
         PiraTxts=list()
         for i in range(1,exclHandle.nrows):
@@ -33,12 +33,11 @@ class TestCase():
             PiraTxts.append(pt);
         
         #提取特征存入舆情样本对象中的codes
-        print "0.开始..."
         start = time.clock()
         for i in range(len(PiraTxts)):
             txt=PiraTxts[i].getText()
             TxtH=TxtHandle.TxtHandle(txt)
-            signHandle=MinHash.MinHash()
+            signHandle=SimHash.SimHash()
             codes=signHandle.extraSign(TxtH.getWords())
             PiraTxts[i].setCodes(codes)
         end = time.clock() 
@@ -60,8 +59,8 @@ class TestCase():
         for i in range(txt_num):
             if i not in ids:      
                 for j in range(i+1,txt_num):
-                    #使用MinHashOne 计算相似度
-                    simHandle=MinHash.MinHash()
+                    #使用SimHashOne 计算相似度
+                    simHandle=SimHash.SimHash()
                     #print similar
                     if simHandle.isSim(PiraTxts[i].getCodes(),PiraTxts[j].getCodes()):
                         PiraTxts[j].setRid(PiraTxts[i].id)
@@ -89,14 +88,21 @@ class TestCase():
 if __name__=="__main__":
     filename='D:\WorkSpaces\MasterQc\doc\Sample10.xls'
     
-    '''MinHashOne TestCase'''
-#    import zqm.qc.similarity.minhash.MinHashOne as MinHash
-#    TCase=TestCase(filename,'MinHashOne',5)
+
+    
+#    '''SimHashByTF TestCase'''
+#    import zqm.qc.similarity.simhash.SimHashByTF as SimHash
+#    TCase=TestCase(filename,'SimHashTF',10)
 #    TCase.saveSimPiraTxts()
     
-    '''MinHashSome TestCase'''
-    import zqm.qc.similarity.minhash.MinHashSome as MinHash
-    TCase=TestCase(filename,'MinHashSome',6)
+#    '''SimHashByTFIDF TestCase'''
+#    import zqm.qc.similarity.simhash.SimHashByTFIDF as SimHash
+#    TCase=TestCase(filename,'SimHashTFIDF',11)
+#    TCase.saveSimPiraTxts()
+    
+    '''SimHashByTFIDF TestCase'''
+    import zqm.qc.similarity.simhash.SimHashByTextRank as SimHash
+    TCase=TestCase(filename,'SimHashTextRank',12)
     TCase.saveSimPiraTxts()
     
 #    TCase.countWrongMiss()

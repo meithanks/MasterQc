@@ -37,7 +37,7 @@ class TestCase():
         start = time.clock()
         for i in range(len(PiraTxts)):
             txt=PiraTxts[i].getText()
-            TxtH=TxtHandle.TxtHandle(txt)
+            TxtH=TxtHandle.TxtHandle(txt,3)
             signHandle=MinHash.MinHash()
             codes=signHandle.extraSign(TxtH.getWords())
             PiraTxts[i].setCodes(codes)
@@ -61,7 +61,7 @@ class TestCase():
             if i not in ids:      
                 for j in range(i+1,txt_num):
                     #使用MinHashOne 计算相似度
-                    simHandle=MinHash.MinHash()
+                    simHandle=MinHash.MinHash(20,0.2)
                     #print similar
                     if simHandle.isSim(PiraTxts[i].getCodes(),PiraTxts[j].getCodes()):
                         PiraTxts[j].setRid(PiraTxts[i].id)
@@ -89,14 +89,14 @@ class TestCase():
 if __name__=="__main__":
     filename='D:\WorkSpaces\MasterQc\doc\Sample10.xls'
     
-    '''MinHashOne TestCase'''
+#    '''MinHashOne TestCase'''
 #    import zqm.qc.similarity.minhash.MinHashOne as MinHash
-#    TCase=TestCase(filename,'MinHashOne',5)
+#    TCase=TestCase(filename,'MinHashOneTZC',13)
 #    TCase.saveSimPiraTxts()
     
     '''MinHashSome TestCase'''
     import zqm.qc.similarity.minhash.MinHashSome as MinHash
-    TCase=TestCase(filename,'MinHashSome',6)
+    TCase=TestCase(filename,'MinHashSomeTZC',14)
     TCase.saveSimPiraTxts()
     
 #    TCase.countWrongMiss()

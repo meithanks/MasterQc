@@ -43,12 +43,16 @@ class MinHash():
                 S[s] = 1
             else:
                 S[s] += 1
-        return S      
+        return S   
         
-    def extraSign(self,words):
+    def extraSign(self,words,shingling=False):
         minKeys=list()
         for i in range(self.hashNum):
-            key_count=self.directJenkins(words,i)
+            key_count=dict()
+            if shingling==False:
+                key_count=self.directJenkins(words,i)
+            else:
+                key_count=self.shinglingJenkins(words,i)  
             keys=key_count.keys();
             min_key=min(keys)
             minKeys.append(min_key)
