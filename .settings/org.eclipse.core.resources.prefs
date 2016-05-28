@@ -20,3 +20,5 @@ encoding//src/zqm/qc/similarity/simhash/SimHashByTF.py=UTF-8
 encoding//src/zqm/qc/similarity/simhash/SimHashByTFIDF.py=UTF-8
 encoding//src/zqm/qc/similarity/simhash/SimHashByTextRank.py=UTF-8
 encoding//src/zqm/qc/similarity/simhash/TestCase.py=UTF-8
+encoding//src/zqm/qc/test/Test.py=UTF-8
+encoding//src/zqm/qc/test/hanlp.py=UTF-8
