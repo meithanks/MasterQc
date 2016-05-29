@@ -31,8 +31,4 @@ print(HanLP.parseDependency("徐先生还具体帮助他确定了把画雄鹰、
 shutdownJVM()
 
 
-from jpype import *
-startJVM(getDefaultJVMPath())
-System.out.println("hello world")
-shutdownJVM()
 

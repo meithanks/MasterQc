@@ -18,7 +18,6 @@ class SimHash():
     def __init__(self,threshold=4):
         self.threshold=threshold  
         
-    #用于MinHashBaseSingleJenkins Hashes 若k较大，可考虑用token 的方式减小shingles。tokenize为是否进行hash的开关， 当开启hash时，klen为是否hash的阀值。
     def directJenkins(self,words,initval=0):
         '''shingling by hash'''
         S = dict()
@@ -58,7 +57,7 @@ class SimHash():
             bits.append(0)
         
         for key in keys:
-            weight=key_count[key]
+            weight=1
             for i in range(32):
                 if ((key>>i) & 0x1)!=0:
                     bits[i]=bits[i]+weight
@@ -99,10 +98,10 @@ if __name__=="__main__":
     file='D:\WorkSpaces\MasterQc\doc\Sample10.xls'
     exclHandle=ExcelHandle.ExcelHandle(file)
     PiraTxts=list()
-    i=8
+    i=2
     pt=PiraTxt.PiraTxt(exclHandle.read_cell(i,0),exclHandle.read_cell(i,1),exclHandle.read_cell(i,2))
     PiraTxts.append(pt);
-    j=10
+    j=3
     pt=PiraTxt.PiraTxt(exclHandle.read_cell(j,0),exclHandle.read_cell(j,1),exclHandle.read_cell(j,2))
     PiraTxts.append(pt);
     

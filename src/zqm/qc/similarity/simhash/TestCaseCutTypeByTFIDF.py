@@ -37,14 +37,14 @@ class TestCase():
         start = time.clock()
         for i in range(len(PiraTxts)):
             txt=PiraTxts[i].getText()
-            TxtH=TxtHandle.TxtHandle(txt)
+            TxtH=TxtHandle.TxtHandle(txt,1,self.cutType)
             signHandle=SimHash.SimHash()
             codes=signHandle.extraSign(TxtH.getWords())
             PiraTxts[i].setCodes(codes)
         end = time.clock() 
         self.extraSignTime=end-start
         
-        print "1.将测试样本转化为对象List完成"
+        #print "1.将测试样本转化为对象List完成"
         return PiraTxts
    
     def getSimPiraTxts(self):
@@ -69,7 +69,7 @@ class TestCase():
                         ids.append(j) 
         end = time.clock() 
         self.compSignTime=end-start
-        print "2.获取测试样本中相似文章对"
+        #print "2.获取测试样本中相似文章对"
         return PiraTxtWithRids 
     
     def saveSimPiraTxts(self):
@@ -80,7 +80,7 @@ class TestCase():
         for i in range(len(PiraTxtPairs)):
             #print '(%d , %d)' % (PiraTxtPairs[i].id,PiraTxtPairs[i].rid) 
             exclHandle.write_cell(PiraTxtPairs[i].id-1,self.reaultCol,PiraTxtPairs[i].rid)
-        print "2.相似文章对标记完成"
+        #print "2.相似文章对标记完成"
         
     def countWrongMiss(self):
         exclHandle=ExcelHandle.ExcelHandle(self.excel)
@@ -90,34 +90,33 @@ if __name__=="__main__":
     filename='D:\WorkSpaces\MasterQc\doc\Sample10.xls'
     
 #    '''SimHash TestCase'''
-#    import zqm.qc.similarity.simhash.SimHash as SimHash
-#    TCase=TestCase(filename,'SimHash',10)
-#    TCase.saveSimPiraTxts()
-    
-#    '''SimHashByTF TestCase'''
-#    import zqm.qc.similarity.simhash.SimHashByTF as SimHash
-#    TCase=TestCase(filename,'SimHashTF',10)
-#    TCase.saveSimPiraTxts()
-    
-#    '''SimHashByTFIDF TestCase'''
-#    import zqm.qc.similarity.simhash.SimHashByTFIDF as SimHash
-#    TCase=TestCase(filename,'SimHashTFIDF',11)
-#    TCase.saveSimPiraTxts()
-    
-    '''SimHashByTFIDF TestCase'''
-    import zqm.qc.similarity.simhash.SimHashByTextRank as SimHash
-    TCase=TestCase(filename,'SimHashTextRank',12)
+    import zqm.qc.similarity.simhash.SimHashByTFIDF as SimHash
+    TCase=TestCase(filename,'SHByTFIDF-Jieba',24,'Jieba')
     TCase.saveSimPiraTxts()
     
-#    TCase.countWrongMiss()
-
-#    PiraTxtWithRids=TCase.getSimPiraTxts()
-#    print TCase.runtime
-##    txt_num=len(PiraTxtWithRids)
-##    for i in range(txt_num):
-##        print PiraTxtWithRids[i].id,PiraTxtWithRids[i].rid
+    TCase=TestCase(filename,'SHByTFIDF-Standard',25,'Standard')
+    TCase.saveSimPiraTxts()
+    
+    TCase=TestCase(filename,'SHByTFIDF-NLP',26,'NLP')
+    TCase.saveSimPiraTxts()
+    
+    
+    TCase=TestCase(filename,'SHByTFIDF-Index',27,'Index')
+    TCase.saveSimPiraTxts()
+    
+    
+    TCase=TestCase(filename,'SHByTFIDF-Speed',28,'Speed')
+    TCase.saveSimPiraTxts()
    
-  
+    TCase=TestCase(filename,'SHByTFIDF-NShort',29,'NShort')
+    TCase.saveSimPiraTxts()
+    
+    TCase=TestCase(filename,'SHByTFIDF-Short',30,'Short')
+    TCase.saveSimPiraTxts()
+    
+    TCase=TestCase(filename,'SHByTFIDF-CRF',31,'CRF')
+    TCase.saveSimPiraTxts()
+    print "测试结束"
     
     
         

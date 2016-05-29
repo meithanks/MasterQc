@@ -11,7 +11,15 @@ startJVM(getDefaultJVMPath(), "-Djava.class.path=C:\ProgramFiles\hanlp\hanlp-1.2
 txt="水利部水资源司司长陈明忠9月29日在国务院新闻办举行的新闻发布会上透露,有部分省接近了红线的指标，有部分省超过红线的指标。";
 
 HanLP = JClass('com.hankcs.hanlp.HanLP')
-print(HanLP.segment(txt))
+
+termList = HanLP.segment(txt)
+words=list()
+for i in range(termList.size()):
+    words.append(termList.get(i).toString());
+
+print(words[0])
+#words = list(HanLP.segment(txt))  
+#print(words)
 
 print("===============================标准分词=====================================")
 #标准分词
@@ -66,4 +74,3 @@ print("===============================CRF分词=================================
 CRFSegment = JClass('com.hankcs.hanlp.seg.CRF.CRFSegment')
 CRFTokenizer=CRFSegment()
 print(CRFTokenizer.seg(txt))
-
