@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//class/hanlp.properties=UTF-8
 encoding//src/zqm/qc/DoExcel.py=UTF-8
 encoding//src/zqm/qc/DoHash.py=UTF-8
 encoding//src/zqm/qc/DoTxt.py=UTF-8
@@ -25,5 +26,6 @@ encoding//src/zqm/qc/similarity/simhash/TestCaseCutType.py=UTF-8
 encoding//src/zqm/qc/similarity/simhash/TestCaseCutTypeByTF.py=UTF-8
 encoding//src/zqm/qc/similarity/simhash/TestCaseCutTypeByTFIDF.py=UTF-8
 encoding//src/zqm/qc/similarity/simhash/TestCaseCutTypeByTextRank.py=UTF-8
-encoding//src/zqm/qc/test/Test.py=UTF-8
+encoding//src/zqm/qc/test/IKA.py=UTF-8
 encoding//src/zqm/qc/test/hanlp.py=UTF-8
+encoding//src/zqm/qc/test/word.py=UTF-8

@@ -8,11 +8,11 @@ from jpype import *
 import jieba.analyse
 import re
 
-startJVM(getDefaultJVMPath(), "-Djava.class.path=C:\ProgramFiles\hanlp\hanlp-1.2.8.jar;C:\ProgramFiles\hanlp", "-Xms1g", "-Xmx1g")
+startJVM(getDefaultJVMPath(), "-Djava.class.path=D:\WorkSpaces\MasterQc\class\hanlp-1.2.9.jar;D:\WorkSpaces\MasterQc\class", "-Xms1g", "-Xmx1g")
 
 #相对当前py文件路径，zqmdict.txt：使用notepad++,格式->以utf-8无BOM编码，
 #然后输入，格式：词 词频 词性（一行）,自定义词典里提词频越高则成词概率越大，不宜过大。
-#jieba.load_userdict("D:\WorkSpaces\MasterQc\doc\dict.txt") 
+jieba.load_userdict("D:\WorkSpaces\MasterQc\doc\jieba\dict.txt") 
 
 class TxtHandle():
     
