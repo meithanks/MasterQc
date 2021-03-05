@@ -1,6 +1,6 @@
 # MasterQc
 Duplicate Web Page Elimination
 
-大量文章去重算法研究
+毕业论文大量文章去重算法研究
 
 
